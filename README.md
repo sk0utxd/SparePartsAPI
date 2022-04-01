@@ -21,23 +21,23 @@ List of all requests supported by the API along with their descriptions and exam
 Response:
 ```javascript
 {
-	"code": "200",
-	"data": [
-	    {
-	        "id": "00002356517",
-	        "name": "Valuveljed ",
-	        "tallinn": 0,
-	        "tartu": 0,
-	        "parnu": 0,
-	        "rakvere": 0,
-	        "kunda": 0,
-	        "sus1": null,
-	        "sus2": 90.833,
-	        "mark": "KIA",
-	        "price": 109
-	    },
-	    // ...
-    ]
+    "code": "200",
+    "data": [
+        {
+            "id": "00002356517",
+            "name": "Valuveljed ",
+            "tallinn": 0,
+            "tartu": 0,
+            "parnu": 0,
+            "rakvere": 0,
+            "kunda": 0,
+            "sus1": null,
+            "sus2": 90.833,
+            "mark": "KIA",
+            "price": 109
+        },
+        // ...
+        ]
 }
 ```
 ##### With parameters
