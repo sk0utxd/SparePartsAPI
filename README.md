@@ -17,7 +17,7 @@ List of all requests supported by the API along with their descriptions and exam
 #### Examples:
 
 ##### Default
-    http://localhost:3030/parts
+        http://localhost:3030/parts
 Response:
 ```javascript
 {
@@ -63,5 +63,19 @@ Response:
             "price": 119.03
             }
         ]
+}
+```
+
+## Error handling
+Example error when querying for nonexistant page
+
+        http://localhost:3030/parts?page=98765&limit=98765
+Response:
+```javascript
+{
+    "error": {
+        "code": 404,
+        "message": "Requested content out of bounds, searched for entity with index of 987660, only 108866 entities exist."
+    }
 }
 ```
