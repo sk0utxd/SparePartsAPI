@@ -16,5 +16,8 @@
     "url": "https://github.com/sk0utxd/SparePartsAPI/issues"
   },
   "homepage": "https://github.com/sk0utxd/SparePartsAPI#readme",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
