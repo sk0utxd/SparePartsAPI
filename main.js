@@ -16,17 +16,15 @@ app.get('/parts', (req, res) => {
         data.push({
             "id": line[0],
             "name": line[1],
-            "laod": {
-                "tallinn": line[2],
-                "tartu": line[3],
-                "parnu": line[4],
-                "rakvere": line[5],
-                "kunda": line[6]
-            },
-            "sus1": line[7],
-            "sus2": line[8],
-            "carMark": line[9],
-            "price": line[10]
+            "tallinn": parseInt(line[2]),
+            "tartu": parseInt(line[3]),
+            "parnu": parseInt(line[4]),
+            "rakvere": parseInt(line[5]),
+            "kunda": parseInt(line[6]),
+            "sus1": parseFloat(line[7].replace(",", ".")),
+            "sus2": parseFloat(line[8].replace(",", ".")),
+            "mark": line[9],
+            "price": parseFloat(line[10].replace(",", "."))
         })
     }
 
@@ -34,16 +32,38 @@ app.get('/parts', (req, res) => {
     //default
     var pageMarker = 0
     var pageLimit = 10
+    var sort = "name"
+    //var sortEmptyNames = false
+    var filter;
     
     if(Object.keys(params).length > 0){
-        //filter functions
-        
+        if(params.sort){
+            sort = params.sort
+            // if(sortEmptyNames){
+            //     data.sort(dynamicSortMultiple(sort.split(":")))
+            // } else {
+            //     data = data.filter(e => e.name.replaceAll(" ", "").length != 0)
+            //     data.sort(dynamicSortMultiple(sort.split(":")))
+            // }
+
+            data.sort(dynamicSortMultiple(sort.split(":")))
+        }
+
+        if(params.filter){
+            filter = params.filter
+            var filterArgs = filter.split("$")
+            if(filterArgs.length == 2){
+                data = data.filter(e => e[filterArgs[0]].toLowerCase().includes(filterArgs[1].toLowerCase()))
+            }
+        }
+
         if(params.page){
             var page = parseInt(params.page)
             switch(true){
                 case (page > 0):
                     pageMarker = page
                     break
+                
             }
         }
 
@@ -80,3 +100,39 @@ app.get('/parts', (req, res) => {
 app.listen("3030", () => {
     console.log(`Example app listening on port 3030}`)
 })
+
+// functions 
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        /* next line works with strings and numbers, 
+         * and you may want to customize it to your needs
+         */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+function dynamicSortMultiple(props) {
+    /*
+     * save the arguments object as it will be overwritten
+     * note that arguments object is an array-like object
+     * consisting of the names of the properties to sort by
+     */
+    return function (obj1, obj2) {
+        var i = 0, result = 0, numberOfProperties = props.length;
+        /* try getting a different result from 0 (equal)
+         * as long as we have extra properties to compare
+         */
+        while(result === 0 && i < numberOfProperties) {
+            result = dynamicSort(props[i])(obj1, obj2);
+            i++;
+        }
+        return result;
+    }
+}
