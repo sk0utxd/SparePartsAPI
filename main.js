@@ -85,7 +85,7 @@ app.get('/parts', (req, res) => {
             return res.json({
                 "error": {
                     "code": 404,
-                    "message": `Requested content out of bounds, searched for entity with index of ${pageMarker * pageLimit + pageLimit}, only ${data.length} entities exist.`
+                    "message": `Request index ${pageMarker * pageLimit + pageLimit} out of bounds, ${data.length} entities exist.`
                 }
             })
         }
