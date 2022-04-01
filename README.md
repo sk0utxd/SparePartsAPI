@@ -75,7 +75,7 @@ Response:
 {
     "error": {
         "code": 404,
-        "message": "Requested content out of bounds, searched for entity with index of 987660, only 108866 entities exist."
+        "message": "Request index 987660 out of bounds, 108866 entities exist."
     }
 }
 ```
