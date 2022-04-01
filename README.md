@@ -44,7 +44,8 @@ Response:
     http://localhost:3030/parts?page=7&limit=1&sort=mark:-price&filter=name$motor
 Response:
 ```javascript
-// Seventh page, one result per page, sorted by mark ascending aand price descending, filtered to everything that has "motor" in name.
+// Seventh page, one result per page, sorted by mark ascending 
+// and price descending, filtered to everything that has "motor" in name.
 {
     "code": "200",
     "data": [
